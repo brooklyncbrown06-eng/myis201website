@@ -1,11 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Brooklyn Brown Photography</title>
+    <link href="css/mystyles.css" rel="stylesheet" />
 </head>
 <body>
-    
+
+    <!-- Navigation -->
+    <div id="navbar">
+        <a href="index.html">Home</a>
+        <a href="resume.html">Resume</a>
+        <a href="travel.html">Travel</a>
+        <a href="game.html">Game</a>
+        <a href="fromscratch.html">Photography</a>
+    </div>
+
+    <!-- Hero Section -->
+    <div id="hero">
+        <h1>Brooklyn Brown Photography</h1>
+        <p>Capturing moments that last a lifetime.</p>
+    </div>
+
+    <!-- About Section -->
+    <div id="about">
+        <h2>About Me</h2>
+        <p>I have been doing photography for 2 years now and absolutely love it! I specialize in couple and single portrait sessions. I love what I do and the amazing people I get to meet along the way. Follow me on Instagram <strong>@brooklynbrownphoto</strong> to see more of my work!</p>
+    </div>
+
+    <!-- On-page anchor nav -->
+    <div id="anchor-nav">
+        <a href="#portfolio">Portfolio</a> |
+        <a href="#services">Services</a> |
+        <a href="#video">Video</a> |
+        <a href="#tableau">Stats</a>
+    </div>
+
+    <!-- Portfolio Section -->
+    <div id="portfolio">
+        <h2>Portfolio</h2>
+        <div id="photo-grid">
+            <div class="photo-block">
+                <img src="assets/img/haleyandgreta-103.JPG" alt="Portrait Session" />
+                <p>Portrait Session</p>
+            </div>
+            <div class="photo-block">
+                <img src="assets/img/aliyah-3.JPG" alt="Mountain Portrait" />
+                <p>Mountain Portrait</p>
+            </div>
+            <div class="photo-block">
+                <img src="assets/img/engagements-8.JPG" alt="Engagement Session" />
+                <p>Engagement Session</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <div id="services">
+        <h2>Services</h2>
+        <ol>
+            <li>Portrait Sessions
+                <ul>
+                    <li>Individual portraits</li>
+                    <li>Senior photos</li>
+                    <li>Headshots</li>
+                </ul>
+            </li>
+            <li>Couple Sessions
+                <ul>
+                    <li>Engagement photos</li>
+                    <li>Anniversary sessions</li>
+                    <li>Romantic portraits</li>
+                </ul>
+            </li>
+            <li>Editing & Delivery
+                <ul>
+                    <li>Professional editing in Adobe Lightroom</li>
+                    <li>Online gallery delivery</li>
+                    <li>Quick turnaround time</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+
+    <!-- YouTube Video Section -->
+    <div id="video">
+        <h2>Photography Tips I Love</h2>
+        <p>Check out this great video on portrait photography!</p>
+        <div id="video-wrapper">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/hVuTuib65WM" title="Photography Tips" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- Tableau Section -->
+    <div id="tableau">
+        <h2>Photography Business Stats</h2>
+        <p>Check out this interesting Tableau dashboard about the photography business!</p>
+        <div class='tableauPlaceholder' id='viz1713100000000' style='position: relative'>
+            <noscript>
+                <a href='#'>
+                    <img alt='Dashboard 1' src='https://public.tableau.com/static/images/Ph/PhotographyBusiness/Dashboard1/1_rss.png' style='border: none' />
+                </a>
+            </noscript>
+            <object class='tableauViz' style='display:none;'>
+                <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+                <param name='embed_code_version' value='3' />
+                <param name='site_root' value='' />
+                <param name='name' value='PhotographyBusiness/Dashboard1' />
+                <param name='tabs' value='no' />
+                <param name='toolbar' value='yes' />
+                <param name='animate_transition' value='yes' />
+                <param name='display_static_image' value='yes' />
+                <param name='display_spinner' value='yes' />
+                <param name='display_overlay' value='yes' />
+                <param name='display_count' value='yes' />
+                <param name='language' value='en-US' />
+            </object>
+        </div>
+        <script type='text/javascript'>
+            var divElement = document.getElementById('viz1713100000000');
+            var vizElement = divElement.getElementsByTagName('object')[0];
+            vizElement.style.width='100%';
+            vizElement.style.height=(divElement.offsetWidth*0.75)+'px';
+            var scriptElement = document.createElement('script');
+            scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+            vizElement.parentNode.insertBefore(scriptElement, vizElement);
+        </script>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer">
+        <p>© Brooklyn Brown Photography 2026 | <a href="index.html">Back to Home</a></p>
+    </div>
+
 </body>
 </html>

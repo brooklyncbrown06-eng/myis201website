@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <title>Travel Destination Guesser - Brooklyn Brown</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+        <link href="css/styles.css" rel="stylesheet" />
+        <style>
+            #game-container {
+                max-width: 700px;
+                margin: 40px auto;
+                padding: 30px;
+                background-color: #f9f9f9;
+                border-radius: 12px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                text-align: center;
+            }
+            #game-container h2 { font-size: 28px; margin-bottom: 10px; }
+            #clue-box {
+                background-color: #fff;
+                border: 2px solid #ddd;
+                border-radius: 8px;
+                padding: 20px;
+                margin: 20px 0;
+                min-height: 80px;
+                font-size: 18px;
+                font-style: italic;
+                color: #444;
+            }
+            #clue-counter { font-size: 14px; color: #888; margin-bottom: 10px; }
+            .option-btn {
+                display: inline-block;
+                margin: 8px;
+                padding: 12px 24px;
+                background-color: #2c2c2c;
+                color: white;
+                border: none;
+                border-radius: 8px;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.2s;
+            }
+            .option-btn:hover { background-color: #555; }
+            .option-btn.correct { background-color: #28a745; }
+            .option-btn.wrong { background-color: #dc3545; }
+            #next-clue-btn, #next-question-btn, #restart-btn {
+                margin-top: 20px;
+                padding: 12px 30px;
+                background-color: #2c2c2c;
+                color: white;
+                border: none;
+                border-radius: 8px;
+                font-size: 16px;
+                cursor: pointer;
+            }
+            #next-clue-btn:hover, #next-question-btn:hover, #restart-btn:hover { background-color: #555; }
+            #feedback { font-size: 20px; font-weight: bold; margin: 15px 0; min-height: 30px; }
+            #score-board { font-size: 18px; margin-bottom: 10px; color: #555; }
+            #flag { font-size: 60px; margin: 10px 0; }
+            #progress-bar-container {
+                background-color: #ddd;
+                border-radius: 8px;
+                height: 10px;
+                margin: 10px 0 20px;
+            }
+            #progress-bar {
+                background-color: #2c2c2c;
+                height: 10px;
+                border-radius: 8px;
+                width: 0%;
+                transition: width 0.3s;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="index.html">Brooklyn Brown</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="resume.html">Resume</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="travel.html">Travel</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="game.html">Game</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="fromscratch.html">Photography</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <header class="masthead" style="background-image: url(assets/IMG.NATURE.BB.JPG)">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="page-heading">
+                            <h1>🌍 Destination Guesser</h1>
+                            <span class="subheading">Can you guess the travel destination?</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div id="game-container">
+                        <div id="score-board">Score: <span id="score">0</span> / <span id="total">10</span></div>
+                        <div id="progress-bar-container">
+                            <div id="progress-bar"></div>
+                        </div>
+                        <div id="flag"></div>
+                        <h2>Where in the world is this? 🗺️</h2>
+                        <div id="clue-counter">Clue 1 of 3</div>
+                        <div id="clue-box">Loading clue...</div>
+                        <div id="options-container"></div>
+                        <div id="feedback"></div>
+                        <button id="next-clue-btn" onclick="showNextClue()">Next Clue 👀</button>
+                        <button id="next-question-btn" onclick="nextQuestion()" style="display:none;">Next Destination ➡️</button>
+                        <button id="restart-btn" onclick="restartGame()" style="display:none;">Play Again 🔄</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="border-top">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <ul class="list-inline text-center">
+                            <li class="list-inline-item">
+                                <a href="https://www.instagram.com" target="_blank">
+                                    <span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i><i class="fab fa-instagram fa-stack-1x fa-inverse"></i></span>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://www.facebook.com" target="_blank">
+                                    <span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i><i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i></span>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://www.snapchat.com" target="_blank">
+                                    <span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i><i class="fab fa-snapchat fa-stack-1x fa-inverse"></i></span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="small text-center text-muted fst-italic">Copyright &copy; Brooklyn Brown 2026</div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="js/scripts.js"></script>
+        <script>
+            const destinations = [
+                { answer: "Japan", flag: "🇯🇵", clues: ["This country has the world's busiest pedestrian crossing in its capital city.", "It is home to Mount Fuji, an iconic snow-capped volcano.", "Famous for cherry blossoms, sushi, and ancient temples."], options: ["Japan", "China", "South Korea", "Thailand"] },
+                { answer: "Italy", flag: "🇮🇹", clues: ["This country is shaped like a boot on the map.", "It is home to the Colosseum, built nearly 2,000 years ago.", "Famous for pizza, pasta, gelato, and the Leaning Tower of Pisa."], options: ["Spain", "Italy", "Greece", "Portugal"] },
+                { answer: "Australia", flag: "🇦🇺", clues: ["This country is also its own continent.", "It is home to the Great Barrier Reef, the world's largest coral reef system.", "Famous for kangaroos, the Sydney Opera House, and Uluru."], options: ["New Zealand", "Australia", "South Africa", "Brazil"] },
+                { answer: "France", flag: "🇫🇷", clues: ["This country is the most visited in the world.", "It has a famous iron tower built in 1889 as a temporary structure.", "Known for croissants, wine, fashion, and the Louvre museum."], options: ["Belgium", "France", "Switzerland", "Germany"] },
+                { answer: "Egypt", flag: "🇪🇬", clues: ["This country is home to one of the Seven Wonders of the Ancient World.", "The Nile River, the world's longest river, runs through it.", "Famous for pyramids, pharaohs, mummies, and the Sphinx."], options: ["Morocco", "Egypt", "Sudan", "Tunisia"] },
+                { answer: "Brazil", flag: "🇧🇷", clues: ["This country contains the majority of the Amazon Rainforest.", "It is the largest country in South America.", "Famous for the Rio Carnival, Christ the Redeemer statue, and soccer."], options: ["Argentina", "Brazil", "Colombia", "Peru"] },
+                { answer: "Iceland", flag: "🇮🇸", clues: ["This country has more hot springs per capita than anywhere else on Earth.", "You can see the Northern Lights here in winter.", "Despite its name, it is actually quite green and known for its volcanoes and geysers."], options: ["Norway", "Iceland", "Greenland", "Finland"] },
+                { answer: "India", flag: "🇮🇳", clues: ["This country is the world's most populous nation.", "It is home to the Taj Mahal, a white marble mausoleum.", "Famous for its diverse cuisine, Bollywood, and the Ganges River."], options: ["Pakistan", "India", "Bangladesh", "Nepal"] },
+                { answer: "Peru", flag: "🇵🇪", clues: ["This country is home to one of the New Seven Wonders of the World.", "The Amazon River originates here.", "Famous for Machu Picchu, llamas, and the ancient Inca civilization."], options: ["Bolivia", "Peru", "Chile", "Ecuador"] },
+                { answer: "Greece", flag: "🇬🇷", clues: ["This country is considered the birthplace of democracy.", "It has over 6,000 islands, though only around 200 are inhabited.", "Famous for the Parthenon, blue-domed churches, and amazing Mediterranean food."], options: ["Turkey", "Greece", "Cyprus", "Croatia"] }
+            ];
+
+            let currentQuestion = 0;
+            let currentClue = 0;
+            let score = 0;
+            let answered = false;
+
+            function loadQuestion() {
+                answered = false;
+                currentClue = 0;
+                const dest = destinations[currentQuestion];
+                document.getElementById('flag').textContent = '';
+                document.getElementById('clue-box').textContent = dest.clues[0];
+                document.getElementById('clue-counter').textContent = 'Clue 1 of 3';
+                document.getElementById('feedback').textContent = '';
+                document.getElementById('next-clue-btn').style.display = 'inline-block';
+                document.getElementById('next-question-btn').style.display = 'none';
+                document.getElementById('restart-btn').style.display = 'none';
+                document.getElementById('total').textContent = destinations.length;
+                const progress = (currentQuestion / destinations.length) * 100;
+                document.getElementById('progress-bar').style.width = progress + '%';
+                const container = document.getElementById('options-container');
+                container.innerHTML = '';
+                dest.options.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-btn';
+                    btn.textContent = opt;
+                    btn.onclick = () => checkAnswer(opt, btn);
+                    container.appendChild(btn);
+                });
+            }
+
+            function showNextClue() {
+                const dest = destinations[currentQuestion];
+                if (currentClue < 2) {
+                    currentClue++;
+                    document.getElementById('clue-box').textContent = dest.clues[currentClue];
+                    document.getElementById('clue-counter').textContent = `Clue ${currentClue + 1} of 3`;
+                    if (currentClue === 2) document.getElementById('next-clue-btn').style.display = 'none';
+                }
+            }
+
+            function checkAnswer(selected, btn) {
+                if (answered) return;
+                answered = true;
+                const dest = destinations[currentQuestion];
+                const allBtns = document.querySelectorAll('.option-btn');
+                allBtns.forEach(b => b.disabled = true);
+                if (selected === dest.answer) {
+                    btn.classList.add('correct');
+                    document.getElementById('feedback').textContent = '✅ Correct! Well done!';
+                    document.getElementById('feedback').style.color = '#28a745';
+                    score++;
+                    document.getElementById('score').textContent = score;
+                } else {
+                    btn.classList.add('wrong');
+                    document.getElementById('feedback').textContent = `❌ Nope! It was ${dest.answer}!`;
+                    document.getElementById('feedback').style.color = '#dc3545';
+                    allBtns.forEach(b => { if (b.textContent === dest.answer) b.classList.add('correct'); });
+                }
+                document.getElementById('flag').textContent = dest.flag;
+                document.getElementById('next-clue-btn').style.display = 'none';
+                if (currentQuestion < destinations.length - 1) {
+                    document.getElementById('next-question-btn').style.display = 'inline-block';
+                } else {
+                    setTimeout(() => endGame(), 1000);
+                }
+            }
+
+            function nextQuestion() { currentQuestion++; loadQuestion(); }
+
+            function endGame() {
+                document.getElementById('flag').textContent = '🎉';
+                document.getElementById('clue-box').textContent = `Game over! You got ${score} out of ${destinations.length} correct!`;
+                document.getElementById('clue-counter').textContent = 'Thanks for playing!';
+                document.getElementById('options-container').innerHTML = '';
+                document.getElementById('feedback').textContent = score >= 7 ? '🌟 Amazing traveler!' : score >= 4 ? '✈️ Not bad, keep exploring!' : '📚 Time to hit the travel books!';
+                document.getElementById('next-clue-btn').style.display = 'none';
+                document.getElementById('next-question-btn').style.display = 'none';
+                document.getElementById('restart-btn').style.display = 'inline-block';
+                document.getElementById('progress-bar').style.width = '100%';
+            }
+
+            function restartGame() { currentQuestion = 0; score = 0; document.getElementById('score').textContent = 0; loadQuestion(); }
+
+            loadQuestion();
+        </script>
+    </body>
+</html>
